@@ -1,0 +1,748 @@
+#Name: Md Mushfiqur Rahman
+#Roll:2007027
+#Project Name: "Covid Bed Slot Booking System"
+#Tables: There are 5 tables. They are Hospitals, Patients, Staff, Beds and Bookings respectively.
+
+The necessary query operations related to my project are demonstrated below:
+
+
+ #(1) Creation of Data Tables:
+
+
+CREATE TABLE Hospitals (
+    Hospital_ID NUMBER PRIMARY KEY,
+    Name VARCHAR2(255),
+    Address VARCHAR2(500),
+    Phone_Number VARCHAR2(20)
+);
+
+CREATE TABLE Patients (
+    Patient_ID NUMBER PRIMARY KEY,
+    Name VARCHAR2(255),
+    Age NUMBER,
+    Phone_Number VARCHAR2(20),
+    Address VARCHAR2(500)
+);
+
+CREATE TABLE Staff (
+    Staff_ID NUMBER PRIMARY KEY,
+    Name VARCHAR2(255),
+    Role VARCHAR2(100),
+    Hospital_ID NUMBER,
+    FOREIGN KEY (Hospital_ID) REFERENCES Hospitals(Hospital_ID)
+);
+
+
+CREATE TABLE Beds (
+    Bed_ID NUMBER PRIMARY KEY,
+    Hospital_ID NUMBER,
+    Room_Number VARCHAR2(20),
+    Type VARCHAR2(100),
+    Status VARCHAR2(50),
+    FOREIGN KEY (Hospital_ID) REFERENCES Hospitals(Hospital_ID)
+);
+
+CREATE TABLE Bookings (
+    Booking_ID NUMBER PRIMARY KEY,
+    Patient_ID NUMBER,
+    Bed_ID NUMBER,
+    Start_Date DATE,
+    End_Date DATE,
+    FOREIGN KEY (Patient_ID) REFERENCES Patients(Patient_ID),
+    FOREIGN KEY (Bed_ID) REFERENCES Beds(Bed_ID)
+);
+
+
+#(2) DDL :
+ALTER TABLE Patients ADD Email VARCHAR2(255);
+ALTER TABLE Patients MODIFY Email VARCHAR2(100); 
+ALTER TABLE Patients RENAME COLUMN Email TO NewEmail;
+ALTER TABLE Patients DROP COLUMN NewEmail;
+
+#(3) Insert Row Into 5 Tables:
+
+=>Insert into Hospitals Table:
+INSERT INTO Hospitals (Hospital_ID, Name, Address, Phone_Number)  VALUES (1, 'Hospital A', '123 Main St, CityA', '123-456-7890');
+INSERT INTO Hospitals (Hospital_ID, Name, Address, Phone_Number)  VALUES (2, 'Hospital B', '456 Oak St, CityB', '456-789-0123');
+INSERT INTO Hospitals (Hospital_ID, Name, Address, Phone_Number)  VALUES (3, 'Hospital C', '789 Maple St, CityC', '789-012-3456');
+INSERT INTO Hospitals (Hospital_ID, Name, Address, Phone_Number)  VALUES (4, 'Hospital D', '987 Elm St, CityD', '987-654-3210');
+INSERT INTO Hospitals (Hospital_ID, Name, Address, Phone_Number)  VALUES(5, 'Hospital E', '654 Pine St, CityE', '654-321-0987');
+
+=>Insert into Patients Table:
+INSERT INTO Patients (Patient_ID, Name, Age, Phone_Number, Address) VALUES  (1, 'John Doe', 35, '111-222-3333', '123 Oak St, CityA');
+INSERT INTO Patients (Patient_ID, Name, Age, Phone_Number, Address) VALUES  (2, 'Jane Smith', 45, '222-333-4444', '456 Elm St, CityB');
+INSERT INTO Patients (Patient_ID, Name, Age, Phone_Number, Address) VALUES  (3, 'Michael Johnson', 50, '333-444-5555', '789 Maple St, CityC');
+INSERT INTO Patients (Patient_ID, Name, Age, Phone_Number, Address) VALUES  (4, 'Emily Davis', 28, '444-555-6666', '987 Pine St, CityD');
+INSERT INTO Patients (Patient_ID, Name, Age, Phone_Number, Address) VALUES   (5, 'David Wilson', 62, '555-666-7777', '654 Oak St, CityE');
+
+=>Insert into Staff Table:
+INSERT INTO Staff (Staff_ID, Name, Role, Hospital_ID) VALUES (1, 'Alice Johnson', 'Doctor', 1);
+INSERT INTO Staff (Staff_ID, Name, Role, Hospital_ID) VALUES (2, 'Bob Smith', 'Nurse', 2);
+INSERT INTO Staff (Staff_ID, Name, Role, Hospital_ID) VALUES (3, 'Charlie Brown', 'Surgeon', 3);
+INSERT INTO Staff (Staff_ID, Name, Role, Hospital_ID) VALUES (4, 'Diana Lee', 'Nurse', 4);
+INSERT INTO Staff (Staff_ID, Name, Role, Hospital_ID) VALUES (5, 'Eleanor Davis', 'Doctor', 5);
+
+=>Insert into Beds Table:
+INSERT INTO Beds (Bed_ID, Hospital_ID, Room_Number, Type, Status) VALUES (1, 1, '101', 'ICU', 'Occupied');
+INSERT INTO Beds (Bed_ID, Hospital_ID, Room_Number, Type, Status) VALUES (2, 2, '201', 'General', 'Available');
+INSERT INTO Beds (Bed_ID, Hospital_ID, Room_Number, Type, Status) VALUES (3, 3, '301', 'ICU', 'Occupied');
+INSERT INTO Beds (Bed_ID, Hospital_ID, Room_Number, Type, Status) VALUES (4, 4, '401', 'General', 'Available');
+INSERT INTO Beds (Bed_ID, Hospital_ID, Room_Number, Type, Status) VALUES (5, 5, '501', 'ICU', 'Occupied');
+
+=>Insert into Bookings Table:
+
+INSERT INTO Bookings (Booking_ID, Patient_ID, Bed_ID, Start_Date, End_Date)
+VALUES (1, 1, 1, TO_DATE('2024-04-30', 'YYYY-MM-DD'), TO_DATE('2024-05-07', 'YYYY-MM-DD'));
+
+INSERT INTO Bookings (Booking_ID, Patient_ID, Bed_ID, Start_Date, End_Date)
+VALUES (2, 2, 2, TO_DATE('2024-04-30', 'YYYY-MM-DD'), TO_DATE('2024-05-05', 'YYYY-MM-DD'));
+
+INSERT INTO Bookings (Booking_ID, Patient_ID, Bed_ID, Start_Date, End_Date)
+VALUES (3, 3, 3, TO_DATE('2024-04-30', 'YYYY-MM-DD'), TO_DATE('2024-05-10', 'YYYY-MM-DD'));
+
+INSERT INTO Bookings (Booking_ID, Patient_ID, Bed_ID, Start_Date, End_Date)
+VALUES (4, 4, 4, TO_DATE('2024-04-30', 'YYYY-MM-DD'), TO_DATE('2024-05-03', 'YYYY-MM-DD'));
+
+INSERT INTO Bookings (Booking_ID, Patient_ID, Bed_ID, Start_Date, End_Date)
+VALUES (5, 5, 5, TO_DATE('2024-04-30', 'YYYY-MM-DD'), TO_DATE('2024-05-09', 'YYYY-MM-DD'));
+
+
+
+
+#(4) Displaying Data From Table:
+
+=> From Hospitals Table:    SELECT * FROM Hospitals;
+=> From Patients Table:    SELECT * FROM Patients;
+=> From Staff Table:    SELECT * FROM Staff;
+=> From Beds Table:    SELECT * FROM Beds;
+=> From Bookings Table:    SELECT * FROM Bookings;
+
+#(5) Displaying Data Using where Condition:
+
+=> From Hospitals Table:   SELECT * FROM Hospitals WHERE Hospital_ID = 1;
+=> From Patients Table:    SELECT * FROM Patients WHERE Age >= 40;
+=> From Staff Table:  SELECT * FROM Staff WHERE Role = 'Doctor';
+=> From Beds Table:    SELECT * FROM Beds WHERE Type = 'ICU' AND Status = 'Occupied';
+=> From Bookings Table:    SELECT * FROM Bookings WHERE Bed_ID > 2;
+
+
+#(6) Updating A Row:
+
+=> For Hospitals Table:
+UPDATE Hospitals
+SET Name = 'Updated Hospital Name', Address = 'Updated Address', Phone_Number = '555-555-5555'
+WHERE Hospital_ID = 5;
+
+=>For Patients Table:
+UPDATE Patients
+SET Name = 'Updated Patient Name', Age = 30, Phone_Number = '555-555-5555', Address = 'Updated Address'
+WHERE Patient_ID = 5;
+
+=>For Staff Table:
+UPDATE Staff
+SET Name = 'Updated Staff Name', Role = 'Updated Role', Hospital_ID = 1
+WHERE Staff_ID = 5;
+
+=>For Beds Table:
+UPDATE Beds
+SET Hospital_ID = 2, Room_Number = '502', Type = 'General', Status = 'Available'
+WHERE Bed_ID = 5;
+
+=>For Bookings Table:
+UPDATE Bookings
+SET Patient_ID = 4, Bed_ID = 4, 
+    Start_Date = TO_DATE('2024-05-01', 'YYYY-MM-DD'), 
+    End_Date = TO_DATE('2024-05-08', 'YYYY-MM-DD')
+WHERE Booking_ID = 5;
+
+#(7) Deleting A Row:
+
+=> From Hospitals Table:  DELETE FROM Hospitals WHERE Hospital_ID = 5;
+=> From Patients Table:    DELETE FROM Patients WHERE Patient_ID = 5;
+=> From Staff Table:  DELETE FROM Staff WHERE Staff_ID = 5;
+=> From Beds Table:  DELETE FROM Beds WHERE Bed_ID = 5;
+=> From Bookings Table: DELETE FROM Bookings WHERE Booking_ID = 5; 
+
+#(8) Union Operation:
+SELECT Hospital_ID, Name, Address, Phone_Number FROM Hospitals
+UNION
+SELECT Hospital_ID, Name, NULL AS Address, NULL AS Phone_Number FROM Staff;
+
+#(9) Intersect Operation:
+
+SELECT Hospital_ID, Name, Address, Phone_Number FROM Hospitals
+ INTERSECT
+ SELECT Hospital_ID, Name, NULL AS Address, NULL AS Phone_Number FROM Staff;
+
+#(10) Minus Operation:
+-- Find patients who do not have any bookings
+SELECT P.Patient_ID, P.Name
+FROM Patients P
+MINUS
+SELECT P.Patient_ID, P.Name
+FROM Bookings B
+JOIN Patients P ON B.Patient_ID = P.Patient_ID;
+
+#(11) Use of Aggregate Function:
+
+=> min aggregate function : SELECT MIN(Bed_ID) AS Min_Bed_ID FROM Beds;
+=> max aggregate function : SELECT MAX(Bed_ID) AS Max_Bed_ID FROM Beds;
+=> count aggregate function : SELECT COUNT(*) AS Total_Beds FROM Beds;
+=> sum aggregate function : SELECT SUM(Bed_ID) AS Total_Bed_IDs FROM Beds;
+=> avg aggregate function : SELECT AVG(Bed_ID) AS Avg_Bed_ID FROM Beds;
+
+#(12) Use of With Clause:
+WITH BookingDetails AS (
+    SELECT Booking_ID, Patient_ID, Bed_ID, Start_Date, End_Date, End_Date - Start_Date AS Duration
+    FROM Bookings
+)
+SELECT * FROM BookingDetails;
+
+#(13) Use of HAVING Clause:
+SELECT Role, COUNT(*) AS Role_Count
+FROM Staff
+GROUP BY Role
+HAVING COUNT(*) > 1;
+
+
+#(14) Use of GROUP BY Clause:
+SELECT Hospital_ID, COUNT(*) AS Total_Beds
+FROM Beds
+GROUP BY Hospital_ID;
+
+
+
+#(15) Use of Nested Subquery:
+SELECT *
+FROM Beds
+WHERE Bed_ID IN (
+    SELECT DISTINCT Bed_ID 
+    FROM Bookings 
+    WHERE Patient_ID IN (
+        SELECT Patient_ID 
+        FROM Patients 
+        WHERE Age > 40
+    )
+);
+
+
+#(16) Use of AND operator:
+SELECT *
+FROM Patients
+WHERE Age >= 30 AND Age <= 50;
+
+
+#(17) Use of OR operator:
+SELECT *
+FROM Patients
+WHERE Age < 30 OR Age >= 40;
+
+
+#(18) Use of NOT operator:
+SELECT *
+FROM Patients
+WHERE NOT (Age < 30 OR Age >= 40);
+
+
+#(19) Use of 'exists' keyword:
+SELECT *
+FROM Patients p
+WHERE EXISTS (
+    SELECT 1
+    FROM Patients
+    WHERE Age >= 30
+);
+
+
+
+
+#(20) Use of 'some' keyword:
+SELECT *
+FROM Patients
+WHERE Age > SOME (
+    SELECT Age
+    FROM Patients
+    WHERE Age >= 30
+);
+
+
+#(22) Use of 'IN' keyword:
+SELECT Name
+FROM Staff
+WHERE Hospital_ID IN
+    (SELECT Hospital_ID
+     FROM Hospitals);
+
+
+#(23) Use of 'unique' keyword:
+SELECT UNIQUE Bed_ID
+FROM Bookings;
+
+#(24) Use of 'LIKE' operator:
+SELECT *
+FROM Patients
+WHERE Name LIKE 'J%';
+
+#(25) Performing Natural Join Operation:
+SELECT *
+FROM Beds
+NATURAL JOIN Hospitals;
+
+#(26) Performing Left Outer Join Operation:
+SELECT *
+FROM Beds
+LEFT OUTER JOIN Hospitals ON Beds.Hospital_ID = Hospitals.Hospital_ID;
+
+#(27) Performing Right Outer Join Operation:
+SELECT *
+FROM Beds
+RIGHT OUTER JOIN Hospitals ON Beds.Hospital_ID = Hospitals.Hospital_ID;
+
+#(28) Performing Full Outer Join Operation:
+SELECT *
+FROM Beds
+FULL OUTER JOIN Hospitals ON Beds.Hospital_ID = Hospitals.Hospital_ID;
+
+#(29) Performing Inner Join Operation:
+SELECT *
+FROM Beds
+INNER JOIN Hospitals ON Beds.Hospital_ID = Hospitals.Hospital_ID;
+
+#(30) Creating View:
+CREATE VIEW AdultPatients AS
+SELECT *
+FROM Patients
+WHERE Age > 18;
+
+SELECT * FROM AdultPatients;
+
+DROP VIEW AdultPatients; //If necessary
+
+#(31) Creating View Using Other View:
+CREATE VIEW SeniorPatients AS
+SELECT *
+FROM AdultPatients
+WHERE Age >= 40;
+
+SELECT * FROM SeniorPatients;
+
+DROP VIEW SeniorPatients; //If necessary
+
+#(32) How To Perform PL/SQL declaration and Print Value:
+
+SET SERVEROUTPUT ON; // to see DBMS_OUTPUT
+DECLARE
+    v_message VARCHAR2(100);
+    v_patient_name VARCHAR2(100);
+BEGIN
+    -- Assigning value to the variable
+    v_message := 'Patient Name: ';
+    
+    -- Retrieving patient name from the table
+    SELECT Name INTO v_patient_name
+    FROM Patients
+    WHERE Patient_ID = 1; -- Specify the patient ID you want to retrieve
+    
+    -- Printing the message along with the patient name
+    DBMS_OUTPUT.PUT_LINE(v_message || v_patient_name);
+END;
+/
+
+
+
+
+#(33) How To Insert and Set Default Value into PL/SQL variable: (Not Run Yet)
+
+SET SERVEROUTPUT ON; 
+DECLARE
+    v_patient_id Patients.Patient_ID%TYPE := 100; -- Choose a unique Patient_ID
+    v_patient_name Patients.Name%TYPE := 'John Doe';
+    v_patient_age Patients.Age%TYPE := 30;
+    v_patient_phone Patients.Phone_Number%TYPE := 'N/A';
+    v_patient_address Patients.Address%TYPE := 'N/A';
+BEGIN
+    INSERT INTO Patients (Patient_ID, Name, Age, Phone_Number, Address)
+    VALUES (v_patient_id, v_patient_name, v_patient_age, v_patient_phone, v_patient_address);
+
+    DBMS_OUTPUT.PUT_LINE('Inserted Patient ID: ' || v_patient_id);
+    DBMS_OUTPUT.PUT_LINE('Inserted Patient Name: ' || v_patient_name);
+    DBMS_OUTPUT.PUT_LINE('Inserted Patient Age: ' || v_patient_age);
+    DBMS_OUTPUT.PUT_LINE('Inserted Patient Phone Number: ' || v_patient_phone);
+    DBMS_OUTPUT.PUT_LINE('Inserted Patient Address: ' || v_patient_address);
+END;
+/
+
+
+#(34) How To Use Row Type:
+
+SET SERVEROUTPUT ON; 
+DECLARE
+    -- Declare a row type based on the structure of the Patients table
+    TYPE patient_row_type IS RECORD (
+        Patient_ID Patients.Patient_ID%TYPE,
+        Name Patients.Name%TYPE,
+        Age Patients.Age%TYPE,
+        Phone_Number Patients.Phone_Number%TYPE,
+        Address Patients.Address%TYPE
+    );
+
+    -- Declare a variable of the row type
+    v_patient patient_row_type;
+BEGIN
+    -- Assign values to the row type variable from the Patients table
+    SELECT *
+    INTO v_patient
+    FROM Patients
+    WHERE ROWNUM = 1; -- Fetching the first row for demonstration
+
+    -- Printing the values of the row type variable
+    DBMS_OUTPUT.PUT_LINE('Patient ID: ' || v_patient.Patient_ID);
+    DBMS_OUTPUT.PUT_LINE('Name: ' || v_patient.Name);
+    DBMS_OUTPUT.PUT_LINE('Age: ' || v_patient.Age);
+    DBMS_OUTPUT.PUT_LINE('Phone Number: ' || v_patient.Phone_Number);
+    DBMS_OUTPUT.PUT_LINE('Address: ' || v_patient.Address);
+END;
+/
+
+#(35) How To Use Cursor and Row Count:
+
+SET SERVEROUTPUT ON; // to see DBMS_OUTPUT
+DECLARE
+    -- Declare a cursor to fetch data from the Patients table
+    CURSOR patient_cursor IS
+        SELECT *
+        FROM Patients;
+    
+    -- Declare a variable to store the count of rows fetched
+    v_row_count NUMBER := 0;
+    
+    -- Declare variables to hold column values
+    v_patient_id Patients.Patient_ID%TYPE;
+    v_patient_name Patients.Name%TYPE;
+    v_patient_age Patients.Age%TYPE;
+    v_patient_phone Patients.Phone_Number%TYPE;
+    v_patient_address Patients.Address%TYPE;
+BEGIN
+    -- Open the cursor
+    OPEN patient_cursor;
+    
+    -- Loop through the cursor and fetch each row
+    LOOP
+        -- Fetch row into variables
+        FETCH patient_cursor INTO v_patient_id, v_patient_name, v_patient_age, v_patient_phone, v_patient_address;
+        
+        -- Exit the loop if no more rows to fetch
+        EXIT WHEN patient_cursor%NOTFOUND;
+        
+        -- Increment row count
+        v_row_count := v_row_count + 1;
+        
+        -- Printing the values of the fetched row
+        DBMS_OUTPUT.PUT_LINE('Patient ID: ' || v_patient_id);
+        DBMS_OUTPUT.PUT_LINE('Name: ' || v_patient_name);
+        DBMS_OUTPUT.PUT_LINE('Age: ' || v_patient_age);
+        DBMS_OUTPUT.PUT_LINE('Phone Number: ' || v_patient_phone);
+        DBMS_OUTPUT.PUT_LINE('Address: ' || v_patient_address);
+        DBMS_OUTPUT.PUT_LINE('--------------------------------');
+    END LOOP;
+    
+    -- Close the cursor
+    CLOSE patient_cursor;
+    
+    -- Printing the total number of rows fetched
+    DBMS_OUTPUT.PUT_LINE('Total number of rows fetched: ' || v_row_count);
+END;
+/
+
+#(36) Using EXTEND function with a FOR loop and a WHILE loop:
+
+SQL> DECLARE
+  2      -- Define a collection type for storing patient data
+  3      TYPE patient_array IS TABLE OF Patients%ROWTYPE;
+  4
+  5      -- Declare an array variable
+  6      v_patients patient_array := patient_array();
+  7
+  8      -- Counter variable for loops
+  9      v_counter NUMBER := 0;
+ 10
+ 11      -- Variable to hold the total count of patients
+ 12      v_total_patients NUMBER;
+ 13
+ 14      -- Cursor variable
+ 15      CURSOR patients_cursor IS
+ 16          SELECT * FROM Patients;
+ 17  BEGIN
+ 18      -- Fetch total count of patients
+ 19      SELECT COUNT(*) INTO v_total_patients FROM Patients;
+ 20
+ 21      -- Open cursor
+ 22      OPEN patients_cursor;
+ 23
+ 24      -- Fetch data from Patients table into the array using a cursor and loop
+ 25      LOOP
+ 26          -- Extend the array size
+ 27          v_patients.EXTEND;
+ 28
+ 29          -- Fetch data from cursor into record
+ 30          FETCH patients_cursor INTO v_patients(v_counter+1);
+ 31
+ 32          -- Exit loop if no more rows
+ 33          EXIT WHEN patients_cursor%NOTFOUND;
+ 34
+ 35          -- Increment counter
+ 36          v_counter := v_counter + 1;
+ 37      END LOOP;
+ 38
+ 39      -- Close cursor
+ 40      CLOSE patients_cursor;
+ 41
+ 42      -- Print the fetched data using a loop
+ 43      DBMS_OUTPUT.PUT_LINE('Fetched data using cursor and loop:');
+ 44      FOR i IN 1..v_patients.COUNT LOOP
+ 45          DBMS_OUTPUT.PUT_LINE('Patient ID: ' || v_patients(i).Patient_ID);
+ 46          -- Print other patient details similarly
+ 47      END LOOP;
+ 48  END;
+ 49  /
+
+#(37) Without using EXTEND function, with a FOR loop and a WHILE loop:
+
+DECLARE
+    -- Define a collection type for storing patient data
+    TYPE patient_array IS TABLE OF Patients%ROWTYPE INDEX BY PLS_INTEGER;
+
+    -- Declare an array variable
+    v_patients patient_array;
+
+    -- Counter variable for loops
+    v_counter NUMBER := 0;
+
+    -- Cursor variable
+    patient_cursor SYS_REFCURSOR;
+BEGIN
+    -- Fetch data from Patients table into the array using a FOR loop without EXTEND function
+    FOR patient_rec IN (SELECT * FROM Patients) LOOP
+        v_counter := v_counter + 1;
+        v_patients(v_counter) := patient_rec; -- Assign fetched row to array element
+    END LOOP;
+
+    -- Print the fetched data using a FOR loop
+    DBMS_OUTPUT.PUT_LINE('Fetched data using FOR loop without EXTEND function:');
+    FOR i IN 1..v_patients.COUNT LOOP
+        DBMS_OUTPUT.PUT_LINE('Patient ID: ' || v_patients(i).Patient_ID);
+        -- Print other patient details similarly
+    END LOOP;
+
+    -- Reset counter for WHILE loop
+    v_counter := 0;
+
+    -- Fetch data from Patients table into the array using a WHILE loop without EXTEND function
+    OPEN patient_cursor FOR SELECT * FROM Patients;
+    LOOP
+        FETCH patient_cursor INTO v_patients(v_counter+1);
+        EXIT WHEN patient_cursor%NOTFOUND;
+        v_counter := v_counter + 1;
+    END LOOP;
+    CLOSE patient_cursor;
+
+    -- Print the fetched data using a WHILE loop
+    DBMS_OUTPUT.PUT_LINE('Fetched data using WHILE loop without EXTEND function:');
+    v_counter := 1;
+    WHILE v_counter <= v_patients.COUNT LOOP
+        DBMS_OUTPUT.PUT_LINE('Patient ID: ' || v_patients(v_counter).Patient_ID);
+        -- Print other patient details similarly
+        v_counter := v_counter + 1;
+    END LOOP;
+END;
+/
+
+
+#(38) IF /ELSEIF /ELSE:
+SET SERVEROUTPUT ON; 
+DECLARE
+    v_patient_age Patients.Age%TYPE;
+BEGIN
+    -- Assume we are fetching the age of a patient from the Patients table
+    SELECT Age INTO v_patient_age FROM Patients WHERE Patient_ID = 1; -- Fetching age of patient with ID = 1
+    
+    -- Check the age and classify the patient into different groups
+    IF v_patient_age < 18 THEN
+        DBMS_OUTPUT.PUT_LINE('Patient is a child.');
+    ELSIF v_patient_age >= 18 AND v_patient_age < 60 THEN
+        DBMS_OUTPUT.PUT_LINE('Patient is an adult.');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Patient is a senior citizen.');
+    END IF;
+END;
+/
+
+
+#(39) Create Procedure:
+
+
+CREATE OR REPLACE PROCEDURE GetPatientDetails(
+    p_patient_id IN Patients.Patient_ID%TYPE
+)
+IS
+    v_patient_name Patients.Name%TYPE;
+    v_patient_age Patients.Age%TYPE;
+    v_patient_phone Patients.Phone_Number%TYPE;
+    v_patient_address Patients.Address%TYPE;
+BEGIN
+    -- Fetch patient details based on the provided patient ID
+    SELECT Name, Age, Phone_Number, Address
+    INTO v_patient_name, v_patient_age, v_patient_phone, v_patient_address
+    FROM Patients
+    WHERE Patient_ID = p_patient_id;
+    
+    -- Print the fetched patient details
+    DBMS_OUTPUT.PUT_LINE('Patient ID: ' || p_patient_id);
+    DBMS_OUTPUT.PUT_LINE('Name: ' || v_patient_name);
+    DBMS_OUTPUT.PUT_LINE('Age: ' || v_patient_age);
+    DBMS_OUTPUT.PUT_LINE('Phone Number: ' || v_patient_phone);
+    DBMS_OUTPUT.PUT_LINE('Address: ' || v_patient_address);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Patient with ID ' || p_patient_id || ' not found.');
+END;
+/
+
+
+SET SERVEROUTPUT ON; 
+BEGIN
+    GetPatientDetails(1); -- Pass the patient ID as an argument
+END;
+/
+
+DROP PROCEDURE GetPatientDetails;// To drop procedure
+
+#(40) Create Function:
+
+CREATE OR REPLACE FUNCTION GetPatientAge(
+    p_patient_id IN Patients.Patient_ID%TYPE
+) RETURN NUMBER
+IS
+    v_patient_age Patients.Age%TYPE;
+BEGIN
+    -- Fetch the age of the patient based on the provided patient ID
+    SELECT Age INTO v_patient_age
+    FROM Patients
+    WHERE Patient_ID = p_patient_id;
+
+    -- Return the age of the patient
+    RETURN v_patient_age;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Patient with ID ' || p_patient_id || ' not found.');
+        RETURN NULL;
+END;
+/
+
+
+SET SERVEROUTPUT ON; 
+DECLARE
+    v_age NUMBER;
+BEGIN
+    v_age := GetPatientAge(1); -- Pass the patient ID as an argument
+    IF v_age IS NOT NULL THEN
+        DBMS_OUTPUT.PUT_LINE('Patient Age: ' || v_age);
+    END IF;
+END;
+/
+
+DROP FUNCTION GetPatientAge; // to drop the function
+
+#(41) Create Trigger:
+CREATE OR REPLACE TRIGGER Beds_Before_Insert
+BEFORE INSERT ON Beds
+FOR EACH ROW
+BEGIN
+    -- Update the Status column to "Available" before insertion
+    :NEW.Status := 'Available';
+END;
+/
+
+-- Step 1: Insert a new row into the Beds table
+INSERT INTO Beds (Bed_ID, Hospital_ID, Room_Number, Type)
+VALUES (5, 1, '501', 'ICU');
+
+
+-- Step 2: Verify the trigger execution
+-- Check the status of the inserted row
+SELECT * FROM Beds WHERE Bed_ID = 5;
+
+
+-- Output: The Status column of the inserted row should be "Available" due to the trigger execution
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
