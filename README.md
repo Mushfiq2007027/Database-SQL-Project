@@ -86,8 +86,6 @@ To use this project:
 4. Run PL/SQL blocks, procedures, and functions for data manipulation and retrieval.
 5. Execute queries to analyze and report on hospital bed bookings.
 
----
 
-## Contact
 
-For feedback, questions, or collaboration, feel free to reach out.
+
